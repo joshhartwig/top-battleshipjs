@@ -10,9 +10,13 @@ game flow...
 */
 
 // controls the entire game flow has control of board and ships
+import { board } from "./board";
+
 export class game {
   ai_score = 0;
   player_score = 0;
-  
-  constructor(){}
+
+  constructor(){
+    
+  }
 }
