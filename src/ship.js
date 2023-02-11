@@ -10,6 +10,7 @@ const ship = (length, orientation, coords = {r:0,c:0}) => {
     return false;
   };
   
+  // TODO: Fix this .. currently it just prints, add it to an array
   const create = () => {
     let r = coords.r;
     let c = coords.c;

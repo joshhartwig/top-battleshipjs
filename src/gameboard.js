@@ -24,8 +24,16 @@ const gameboard = (rows = 10,cols = 10) => {
   const placeShip = (r,c,orientation, length) => {
     if(checkIfValidGrid(r,c,orientation,length)) {
       ships.push(ship(length,orientation,{r:r,c:c}));
-      updateGameboard();  //TODO: update gameboard
+      update();
     }
+  }
+
+  const update = () => {
+    ships.forEach(e => {
+      r = e.r;
+      c = e.c;
+      board[r][c].hasShip = true;
+    });
   }
 
   // returns true if valid grid location
@@ -52,5 +60,5 @@ const gameboard = (rows = 10,cols = 10) => {
       }
     }
   }
-  return { createBoard, printBoard, checkIfValidGrid }
+  return { board, createBoard, printBoard, placeShip, checkIfValidGrid }
 }
