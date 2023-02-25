@@ -1,64 +1,80 @@
-// returns a gameboard, one per player one for ai
-const gameboard = (rows = 10,cols = 10) => {
-  let board = []; // our board 10x10 100 cells
-  let ships = []; // contains array of ships that have their coords and hits counts
-  const createBoard = () => {
-    for(let r = 0; r < rows; r++) {
-      let row = []
-      for(let c = 0; c < cols; c++) {
-        row.push({hasShip:false, hit:false});
+export class GameBoard {
+  board = [];
+
+  constructor(rows = 10, cols = 10) {
+    this.rows = rows;
+    this.cols = cols;
+    this.CreateBoard();
+  }
+
+  // create a new board using rows and cols (defaults to 100)
+  CreateBoard() {
+    for (let r = 0; r < this.rows; r++) {
+      let row = [];
+      for (let c = 0; c < this.cols; c++) {
+        row.push({ ship: false, hit: false });
       }
-      board.push(row);
+      this.board.push(row);
     }
-  };
-  const printBoard = () => {
-    for(let r = 0; r < board.length; r++) {
-      let f = ``
-      for(let c = 0; c < board[r].length; c++) {
-        f += `${board[r][c]  }`;
+  }
+
+  // print board details
+  PrintBoard() {
+    for (let r = 0; r < this.board.length; r++) {
+      let f = ``;
+      for (let c = 0; c < this.board[r].length; c++) {
+        f += `|ship:${this.board[r][c].ship} hit:${this.board[r][c].hit}`;
       }
       console.log(`${f} \n`);
     }
   }
-  // check if the zone is valid then push the ship to array and update board
-  const placeShip = (r,c,orientation, length) => {
-    if(checkIfValidGrid(r,c,orientation,length)) {
-      ships.push(ship(length,orientation,{r:r,c:c}));
-      update();
-    }
-  }
 
-  const update = () => {
-    ships.forEach(e => {
-      r = e.r;
-      c = e.c;
-      board[r][c].hasShip = true;
-    });
-  }
-
-  // returns true if valid grid location
-  const checkIfValidGrid = (r,c, orientation, length) => {
-    if(r < 0 || c < 0 ) { // check for < 0
-      return undefined;
-    } else if ( r > rows || c > cols) { // dont exceed rows or cols
-      return undefined;
-    } else {  // we are on the board now check if our location + length exceeds + orien is out of bounds
-      if(orientation === 0) {
-        if(board[r][c + (length - 1)] !== undefined){
+  // if the row + length or col + length is out of bounds return false
+  CheckIfValidGrid(row, column, orientation, length) {
+    if (row < 0 || column < 0) {
+      return false;
+    } else if (row > this.rows || column > this.columns) {
+      return false;
+    } else {
+      if (orientation === 0) {
+        if (this.board[row][column + (length - 1)] !== undefined) {
           return true;
         } else {
           return false;
         }
       }
-      if(orientation === 1) {
-        if(board[r (length - 1)][c] !== undefined) {
+      if (orientation === 1) {
+        if (this.board[row + (length - 1)][column] !== undefined) {
           return true;
-        }
-        else {
+        } else {
           return false;
         }
       }
     }
   }
-  return { board, createBoard, printBoard, placeShip, checkIfValidGrid }
+
+  ReciveAttack(row, column) {
+    if (this.board[row][column] !== undefined) {
+      this.board[row][column].hit = true;
+    }
+  }
+
+  PlaceShip(row, column, orientation, length) {
+    if (this.checkIfValidGrid(row, column, orientation, length)) {
+      let r = row;
+      let c = column;
+      if (orientation === 0) {
+        for (let s = 0; s < length; s++) {
+          this.board[r][c].ship = true;
+          c++;
+        }
+      }
+      if (orientation === 1) {
+        for (let s = 0; s < length; s++) {
+          this.board[r][c].ship = true;
+          r--;
+        }
+      }
+    }
+  }
 }
