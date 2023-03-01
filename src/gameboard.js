@@ -60,7 +60,7 @@ export class GameBoard {
   }
 
   PlaceShip(row, column, orientation, length) {
-    if (this.checkIfValidGrid(row, column, orientation, length)) {
+    if (this.CheckIfValidGrid(row, column, orientation, length)) {
       let r = row;
       let c = column;
       if (orientation === 0) {

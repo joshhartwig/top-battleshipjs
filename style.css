@@ -1,23 +1,47 @@
+img {
+  width:25%;
+}
+
 .container {
   display: flex;
+  justify-content: center;
+  margin-top: 3em;
 
+}
+
+.board {
+  margin-right: 1em;
 }
 
 .ai_board {
   display: inline-grid;
   grid-gap: 5px;
-  grid-template-columns: repeat(10,50px);
+  grid-template-columns: repeat(10,25px);
 }
 
 .player_board {
   display: inline-grid;
   grid-gap: 5px;
-  grid-template-columns: repeat(10,50px);
+  grid-template-columns: repeat(10,25px);
 }
+
 
 .cell {
   position: relative;
-  border: 1px dotted black;
-  width: 50px;
-  height: 50px;
+  border: 1px solid black;
+  width: 25px;
+  height: 25px;
+}
+
+.ship {
+  background-color: black;
+}
+
+.hit {
+  border: 2px solid red;
+}
+
+.controls {
+  width: 20%;
+  border: 1px solid black;
 }
