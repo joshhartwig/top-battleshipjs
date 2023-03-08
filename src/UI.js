@@ -63,6 +63,8 @@ const UI = (_containerID, _devMode = true, _playerBoard, _aiBoard) => {
     }
   };
 
+  const displayInstructions = (msg) => {};
+
   // Initialize UI object
   const init = (() => {
     createUI(container);
