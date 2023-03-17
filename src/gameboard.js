@@ -1,5 +1,10 @@
+import Utils from "./Utils.js";
+import { Ship } from "./Ship.js";
+
 export class GameBoard {
-  board = [];
+  board = []; //2d array of cells for the board
+  ships = []; // tracks our ship locations ex r3c4 = cell 33,34,etc..
+  hits = []; // tracks hits
 
   constructor(rows = 10, cols = 10) {
     this.rows = rows;
@@ -29,6 +34,20 @@ export class GameBoard {
     }
   }
 
+  PrintShips() {
+    this.ships.forEach((e) => console.log(e));
+  }
+
+  // return true if all of our ships are sunk
+  AllShipsSunk() {
+    let result = false;
+
+    this.ships.forEach((e) => {
+      result = e.isSunk(this.hits);
+    });
+    return result;
+  }
+
   // if the row + length or col + length is out of bounds return false
   CheckIfValidGrid(row, column, orientation, length) {
     if (row < 0 || column < 0) {
@@ -56,6 +75,7 @@ export class GameBoard {
   ReciveAttack(row, column) {
     if (this.board[row][column] !== undefined) {
       this.board[row][column].hit = true;
+      this.hits.push[r * 10 + c - 1];
     }
   }
 
@@ -63,18 +83,25 @@ export class GameBoard {
     if (this.CheckIfValidGrid(row, column, orientation, length)) {
       let r = row;
       let c = column;
+      let arr = []; //used to store the locations of our ship
       if (orientation === 0) {
         for (let s = 0; s < length; s++) {
           this.board[r][c].ship = true;
+          let result = r * 10 + (c - 1);
+          arr.push(result); // push the cell value ex row 3 col 4 = 33
           c++;
         }
       }
       if (orientation === 1) {
         for (let s = 0; s < length; s++) {
           this.board[r][c].ship = true;
+          let result = r * 10 + (c - 1);
+          arr.push(result);
           r--;
         }
       }
+      this.ships.push(new Ship(length, arr));
+      this.PrintShips();
     }
   }
 }
