@@ -11,31 +11,18 @@ const UI = (_containerID, _devMode = true, _playerBoard, _aiBoard, _game) => {
     const aiBoard = createBoard(["ai_board", "board"], "aiBoardID");
     const playerBoard = createBoard(["player_board", "board"], "playerBoardID");
 
-    const controls = createControls();
+    const notify = createNotify();
 
     container.appendChild(aiBoard);
     container.appendChild(playerBoard);
-    container.appendChild(controls);
+    container.appendChild(notify);
   };
 
-  const createControls = () => {
-    const controls = document.createElement("div");
-    controls.classList.add("controls");
-    controls.setAttribute("id", "controlsID");
-
-    // create our shipDivs
-    for (let i = 1; i < 5; i++) {
-      const shipControl = document.createElement("div");
-      shipControl.classList.add("shipControl");
-      shipControl.innerText = `Ship ${i}`;
-      for (let r = 0; r < i; r++) {
-        const square = document.createElement("div");
-        square.classList.add("square");
-        shipControl.appendChild(square);
-      }
-      controls.appendChild(shipControl);
-    }
-    return controls;
+  const createNotify = () => {
+    const notify = document.createElement("div");
+    notify.classList.add("notify");
+    notify.setAttribute("id", "notify");
+    return notify;
   };
 
   // returns a board with populated class lists and id
@@ -63,14 +50,48 @@ const UI = (_containerID, _devMode = true, _playerBoard, _aiBoard, _game) => {
     });
   };
 
-  const placeShipFunctionHandler = (gameboard, board) => {
+  const notify = (str, callbackfn) => {
+    const notify = document.getElementById("notify");
+    notify.innerText = str;
+    callbackfn();
+  };
+
+  const placeShipFunctionHandler = (gameboard, board, callbackfn) => {
     let counter = 0;
     for (let r = 0; r < board.length; r++) {
       for (let c = 0; c < board.length; c++) {
         const cell = document.getElementById(`p:${counter}`);
-        //cell.setAttribute("onclick", "this.playerBoard.PlaceShip(3, 2, 0, 3)");
         cell.addEventListener("click", function () {
-          gameboard.PlaceShip(3, 2, 0, 3);
+          gameboard.PlaceShip(r, c, 0, 3);
+          callbackfn();
+        });
+        counter++;
+      }
+    }
+  };
+
+  const removeFunctionHandler = (gameboard, board, callbackfn) => {
+    let counter = 0;
+    for (let r = 0; r < board.length; r++) {
+      for (let c = 0; c < board.length; c++) {
+        const cell = document.getElementById(`p:${counter}`);
+        cell.removeEventListener("click", function () {
+          gameboard.PlaceShip(r, c, 0, 3);
+          callbackfn();
+        });
+        counter++;
+      }
+    }
+  };
+
+  const attackShipFunctionHandler = (gameboard, board, callbackfn) => {
+    let counter = 0;
+    for (let r = 0; r < board.length; r++) {
+      for (let c = 0; c < board.length; c++) {
+        const cell = document.getElementById(`a:${counter}`);
+        cell.addEventListener("click", function () {
+          gameboard.ReceiveAttack(r, c);
+          callbackfn();
         });
         counter++;
       }
@@ -129,7 +150,10 @@ const UI = (_containerID, _devMode = true, _playerBoard, _aiBoard, _game) => {
 
   return {
     updateBoards,
+    notify,
     placeShipFunctionHandler,
+    removeFunctionHandler,
+    attackShipFunctionHandler,
   };
 };
 

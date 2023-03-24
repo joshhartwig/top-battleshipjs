@@ -1,4 +1,3 @@
-import Utils from "./Utils.js";
 import { Ship } from "./Ship.js";
 
 export class GameBoard {
@@ -12,7 +11,8 @@ export class GameBoard {
     this.CreateBoard();
   }
 
-  // create a new board using rows and cols (defaults to 100)
+  /*method creates a new board by looping through each row and column and pushing
+  a new cell object into a 2D array.*/
   CreateBoard() {
     for (let r = 0; r < this.rows; r++) {
       let row = [];
@@ -23,7 +23,7 @@ export class GameBoard {
     }
   }
 
-  // print board details
+  // Prints out the current state of the board with each cell's ship and hit properties
   PrintBoard() {
     for (let r = 0; r < this.board.length; r++) {
       let f = ``;
@@ -34,11 +34,8 @@ export class GameBoard {
     }
   }
 
-  PrintShips() {
-    this.ships.forEach((e) => console.log(e));
-  }
-
-  // return true if all of our ships are sunk
+  /* Method returns true if all of the ships on the board have been sunk, 
+  by calling the isSunk() method on each ship object in the ships array.*/
   AllShipsSunk() {
     let result = false;
 
@@ -48,7 +45,9 @@ export class GameBoard {
     return result;
   }
 
-  // if the row + length or col + length is out of bounds return false
+  /* method checks if the given row, column, orientation, and length are valid
+   for placing a ship on the board. It returns true if the ship fits within the
+   board boundaries, and false otherwise.*/
   CheckIfValidGrid(row, column, orientation, length) {
     if (row < 0 || column < 0) {
       return false;
@@ -72,13 +71,22 @@ export class GameBoard {
     }
   }
 
-  ReciveAttack(row, column) {
+  /*
+  method receives a row and column value representing a cell on the board
+  and updates the hit property of the corresponding cell to true.*/
+  ReceiveAttack(row, column) {
     if (this.board[row][column] !== undefined) {
       this.board[row][column].hit = true;
       this.hits.push[r * 10 + c - 1];
+      console.log(`hit @ r:${row} c:${column} `);
     }
   }
 
+  /*
+  method places a ship on the board by updating the ship property of the corresponding
+  cells in the board 2D array. It checks if the given row, column, orientation, and length
+  are valid using the CheckIfValidGrid() method and pushes the ship location
+  to the ships array using the Ship constructor.*/
   PlaceShip(row, column, orientation, length) {
     if (this.CheckIfValidGrid(row, column, orientation, length)) {
       let r = row;

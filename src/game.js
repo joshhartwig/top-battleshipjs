@@ -1,41 +1,41 @@
-import { GameBoard } from "./GameBoard.js";
 import { UI } from "./UI.js";
-import { Ship } from "./Ship.js";
+import { Player } from "./Player.js";
 
-let ai_score = 0;
-let player_score = 0;
-let ship_selected = false;
-let game_over = false;
-let ships_placed = false;
-
-let playerBoard;
-let aiBoard = null;
+let player = null;
+let ai = null;
 let ui = null;
 
-const gameLoop = () => {
-  if (!ships_placed) {
-    ui.notify("You must place 3 ships");
-    return;
-  }
-};
-
 const setupGame = () => {
-  playerBoard = new GameBoard(10, 10);
-  aiBoard = new GameBoard(10, 10);
-  ui = UI("container", true, playerBoard.board, aiBoard.board, this);
-  ui.updateBoards();
+  player = new Player("human");
+  ai = new Player("ai");
+  ui = UI("container", true, player.gameboard.board, ai.gameboard.board, this);
+  ui.placeShipFunctionHandler(
+    player.gameboard,
+    player.gameboard.board,
+    ui.updateBoards
+  );
 };
 
-const placeShips = () => {
-  console.log("enter placeships");
-  ui.placeShipFunctionHandler(playerBoard, playerBoard.board);
-  while (pending_ship_placement) {
-    console.log(`entering while pending ship placement`);
-    if (playerBoard.ships.length === 3) {
-      ships_placed = true;
-    }
+const gameLoop = () => {
+  if (player.gameboard.ships.length < 4) {
+    ui.notify("place more ships to start the game", ui.updateBoards);
+    requestAnimationFrame(gameLoop);
+    return;
+  } else {
+    ui.notify("Attack one of the enemies cells", ui.updateBoards);
+    ui.removeFunctionHandler(
+      player.gameboard,
+      player.gameboard.board,
+      ui.updateBoards
+    );
+    ui.attackShipFunctionHandler(
+      ai.gameboard,
+      ai.gameboard.board,
+      ui.updateBoards
+    );
+    requestAnimationFrame(gameLoop);
   }
 };
 
 setupGame();
-gameLoop();
+requestAnimationFrame(gameLoop);
