@@ -4,6 +4,7 @@ import { Player } from "./Player.js";
 let player = null;
 let ai = null;
 let ui = null;
+let playerShipPendingPlacement = true;
 
 const setupGame = () => {
   player = new Player("human");
@@ -33,6 +34,7 @@ const gameLoop = () => {
       ai.gameboard.board,
       ui.updateBoards
     );
+    ai.PlaceShipsAutomated(ui.updateBoards);
     requestAnimationFrame(gameLoop);
   }
 };

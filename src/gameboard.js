@@ -109,7 +109,9 @@ export class GameBoard {
         }
       }
       this.ships.push(new Ship(length, arr));
-      this.PrintShips();
+      return true;
+    } else {
+      return false;
     }
   }
 }

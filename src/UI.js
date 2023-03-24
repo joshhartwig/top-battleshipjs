@@ -75,10 +75,7 @@ const UI = (_containerID, _devMode = true, _playerBoard, _aiBoard, _game) => {
     for (let r = 0; r < board.length; r++) {
       for (let c = 0; c < board.length; c++) {
         const cell = document.getElementById(`p:${counter}`);
-        cell.removeEventListener("click", function () {
-          gameboard.PlaceShip(r, c, 0, 3);
-          callbackfn();
-        });
+        cell.parentElement.innerHTML = cell.parentElement.innerHTML;
         counter++;
       }
     }
