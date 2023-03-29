@@ -77,7 +77,7 @@ export class GameBoard {
   ReceiveAttack(row, column) {
     if (this.board[row][column] !== undefined) {
       this.board[row][column].hit = true;
-      this.hits.push[r * 10 + c - 1];
+      this.hits.push[row * 10 + column - 1];
       console.log(`hit @ r:${row} c:${column} `);
     }
   }
@@ -89,23 +89,21 @@ export class GameBoard {
   to the ships array using the Ship constructor.*/
   PlaceShip(row, column, orientation, length) {
     if (this.CheckIfValidGrid(row, column, orientation, length)) {
-      let r = row;
-      let c = column;
       let arr = []; //used to store the locations of our ship
       if (orientation === 0) {
         for (let s = 0; s < length; s++) {
-          this.board[r][c].ship = true;
-          let result = r * 10 + (c - 1);
+          this.board[row][column].ship = true;
+          let result = row * 10 + (column - 1);
           arr.push(result); // push the cell value ex row 3 col 4 = 33
-          c++;
+          column += 1;
         }
       }
       if (orientation === 1) {
         for (let s = 0; s < length; s++) {
-          this.board[r][c].ship = true;
-          let result = r * 10 + (c - 1);
+          this.board[row][column].ship = true;
+          let result = row * 10 + (column - 1);
           arr.push(result);
-          r--;
+          r -= 1;
         }
       }
       this.ships.push(new Ship(length, arr));

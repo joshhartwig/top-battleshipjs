@@ -42,7 +42,8 @@ img {
 }
 
 .hit {
-  border: 1px solid red;
+  border: 1px solid blue;
+  background-color: blue;
 }
 
 .controls {
