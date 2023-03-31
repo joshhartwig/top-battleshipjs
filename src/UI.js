@@ -45,6 +45,7 @@ const UI = (_containerID, _devMode = true, _playerBoard, _aiBoard, _game) => {
       const cell = document.createElement("div");
       cell.classList.add(`r:${a}`, `c:${b}`, `cell`);
       cell.setAttribute("id", `${owner}:${counter}`);
+      cell.innerText = counter;
       counter++;
       container.appendChild(cell);
     });

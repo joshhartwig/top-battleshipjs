@@ -38,7 +38,7 @@ img {
 }
 
 .ship {
-  background-color: black;
+  background-color: grey;
 }
 
 .hit {
@@ -67,7 +67,7 @@ img {
 .square {
   position: relative;
   margin-left: 3px;
-  background-color: black;
+  background-color: grey;
   border: 1px solid black;
   width: 10px;
   height: 10px;

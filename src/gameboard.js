@@ -36,13 +36,9 @@ export class GameBoard {
 
   /* Method returns true if all of the ships on the board have been sunk, 
   by calling the isSunk() method on each ship object in the ships array.*/
+  //
   AllShipsSunk() {
-    let result = false;
-
-    this.ships.forEach((e) => {
-      result = e.isSunk(this.hits);
-    });
-    return result;
+    return this.ships.every((e) => e.isSunk(this.hits));
   }
 
   /* method checks if the given row, column, orientation, and length are valid
@@ -77,7 +73,7 @@ export class GameBoard {
   ReceiveAttack(row, column) {
     if (this.board[row][column] !== undefined) {
       this.board[row][column].hit = true;
-      this.hits.push[row * 10 + column - 1];
+      this.hits.push(row * 10 + column);
       console.log(`hit @ r:${row} c:${column} `);
     }
   }
@@ -93,7 +89,8 @@ export class GameBoard {
       if (orientation === 0) {
         for (let s = 0; s < length; s++) {
           this.board[row][column].ship = true;
-          let result = row * 10 + (column - 1);
+          //let result = row * 10 + (column - 1);
+          let result = row * 10 + column;
           arr.push(result); // push the cell value ex row 3 col 4 = 33
           column += 1;
         }
