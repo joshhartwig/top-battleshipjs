@@ -104,7 +104,6 @@ const UI = (_containerID, _devMode = true, _playerBoard, _aiBoard, _game) => {
       for (let c = 0; c < aiBoard.length; c++) {
         if (aiBoard[r][c].ship) {
           //if we find a ship at this element add a class element 'ship'
-          console.log(`r:${r}-c:${c}`);
           const ship = document.getElementById(`a:${counter}`);
           ship.classList.add("ship");
         }
@@ -123,7 +122,6 @@ const UI = (_containerID, _devMode = true, _playerBoard, _aiBoard, _game) => {
       for (let c = 0; c < playerBoard.length; c++) {
         if (playerBoard[r][c].ship) {
           //if we find a ship at this element add a class element 'ship'
-          console.log(`r:${r}-c:${c}`);
           const ship = document.getElementById(`p:${counter}`);
           ship.classList.add("ship");
         }

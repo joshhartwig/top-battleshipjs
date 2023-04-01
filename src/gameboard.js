@@ -5,10 +5,11 @@ export class GameBoard {
   ships = []; // tracks our ship locations ex r3c4 = cell 33,34,etc..
   hits = []; // tracks hits
 
-  constructor(rows = 10, cols = 10) {
+  constructor(rows = 10, cols = 10, shipLimit = 5) {
     this.rows = rows;
     this.cols = cols;
     this.CreateBoard();
+    this.shipLimit = shipLimit;
   }
 
   /*method creates a new board by looping through each row and column and pushing
@@ -32,6 +33,12 @@ export class GameBoard {
       }
       console.log(`${f} \n`);
     }
+  }
+
+  // returns true if we are at our limit for ships as defined in ctor
+  ShipLimit() {
+    if (this.ships.length === this.shipLimit) return true;
+    return false;
   }
 
   /* Method returns true if all of the ships on the board have been sunk, 
