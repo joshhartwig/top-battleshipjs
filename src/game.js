@@ -1,10 +1,13 @@
 import { UI } from "./UI.js";
+import Utils from "./Utils.js";
 import { Player } from "./Player.js";
 
 let player;
 let ai;
 let ui;
 let currentPlayer;
+let playerScore = 0;
+let aiScore = 0;
 
 let loadGameComplete = false;
 
@@ -21,19 +24,21 @@ const load = () => {
 // this is the pre gameloop stage for placing ships
 const setup = () => {
   ui.updateBoards();
+  // if we hit our ship limit remove the ability to place more
   if (player.gameboard.ShipLimit()) {
     ui.removeFunctionHandler(player.gameboard, player.gameboard.board, setup);
 
+    // if we dont have enough ai ships, place more ships
     if (!ai.gameboard.ShipLimit()) {
       ai.PlaceShipsAutomated(setup);
+    } else {
+      ui.attackShipFunctionHandler(
+        ai.gameboard,
+        ai.gameboard.board,
+        aiAttackAndUpdate
+      );
+      currentPlayer = player;
     }
-    ui.attackShipFunctionHandler(
-      ai.gameboard,
-      ai.gameboard.board,
-      ui.updateBoards
-    );
-    currentPlayer = player;
-    loop();
   }
 };
 
@@ -44,43 +49,38 @@ const switchPlayer = () => {
 const loop = () => {
   if (ai.gameboard.AllShipsSunk() || player.gameboard.AllShipsSunk()) {
     console.log("someone won");
-    return;
+    calculateWinner();
   }
 };
 
-//const gameLoop = () => {
-// if (player.gameboard.ships.length < 4) {
-//   ui.notify("place more ships to start the game", ui.updateBoards);
-//   requestAnimationFrame(gameLoop);
-//   return;
-// } else {
-//   ui.notify("Attack one of the enemies cells", ui.updateBoards);
-//   // TODO: fix this its broken.. the call stack will fill and this no is never accurate
-//   if (ai.gameboard.ships.length < 4) {
-//     ai.PlaceShipsAutomated(ui.updateBoards);
-//   }
-//   // ensure we only attach the attack ship function handler once
-//   if (!attackShipFunctionHandlerSet) {
-//     ui.attackShipFunctionHandler(
-//       ai.gameboard,
-//       ai.gameboard.board,
-//       ui.updateBoards
-//     );
-//     attackShipFunctionHandlerSet = true;
-//   }
-//   if (ai.gameboard.AllShipsSunk()) {
-//     console.log("player won");
-//   }
-//   requestAnimationFrame(gameLoop);
-// }
-//};
+const aiAttackAndUpdate = () => {
+  if (winner()) {
+    reset();
+  } else {
+    let r = Utils.GetRandomNumber(0, 9);
+    let c = Utils.GetRandomNumber(0, 9);
+
+    player.gameboard.ReceiveAttack(r, c);
+    ui.updateBoards();
+  }
+};
+
+const winner = () => {
+  //someone is a winner
+  if (ai.gameboard.AllShipsSunk() || player.gameboard.AllShipsSunk()) {
+    //condition ? exprIfTrue : exprIfFalse
+    ai.gameboard.AllShipsSunk() ? aiScore++ : playerScore++;
+    return true;
+  }
+  return false;
+};
+
+const reset = () => {
+  load();
+};
 
 load();
 setup();
 
 //requestAnimationFrame(gameLoop);
-
-// game loop idea
-// gameloop while pendingSetup = false
-// function for pending setup is called in advance of gameloop
-// for pending setup = true, player setup must be done, ai setup must be done
+//click attack updateUI, checkifwinner, triggeraiattackandupdate
