@@ -74,6 +74,12 @@ export class GameBoard {
     }
   }
 
+  Reset() {
+    this.board = [];
+    this.ships = [];
+    this.hits = [];
+  }
+
   /*
   method receives a row and column value representing a cell on the board
   and updates the hit property of the corresponding cell to true.*/

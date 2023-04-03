@@ -8,6 +8,7 @@ const UI = (_containerID, _devMode = true, _playerBoard, _aiBoard, _game) => {
   const game = _game;
 
   const createUI = (container) => {
+    container.innerHTML = "";
     const aiBoard = createBoard(["ai_board", "board"], "aiBoardID");
     const playerBoard = createBoard(["player_board", "board"], "playerBoardID");
 

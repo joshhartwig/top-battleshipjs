@@ -19,6 +19,7 @@ const load = () => {
   ui.placeShipFunctionHandler(player.gameboard, player.gameboard.board, setup);
   loadGameComplete = true;
   console.log("load game complete");
+  setup();
 };
 
 // this is the pre gameloop stage for placing ships
@@ -42,10 +43,6 @@ const setup = () => {
   }
 };
 
-const switchPlayer = () => {
-  currentPlayer = currentPlayer === player ? ai : player;
-};
-
 const loop = () => {
   if (ai.gameboard.AllShipsSunk() || player.gameboard.AllShipsSunk()) {
     console.log("someone won");
@@ -65,22 +62,25 @@ const aiAttackAndUpdate = () => {
   }
 };
 
+// return true if we found a winner
 const winner = () => {
   //someone is a winner
   if (ai.gameboard.AllShipsSunk() || player.gameboard.AllShipsSunk()) {
     //condition ? exprIfTrue : exprIfFalse
-    ai.gameboard.AllShipsSunk() ? aiScore++ : playerScore++;
+    ai.gameboard.AllShipsSunk() ? playerScore++ : aiScore++;
     return true;
   }
   return false;
 };
 
 const reset = () => {
+  player.gameboard.Reset();
+  ai.gameboard.Reset();
   load();
 };
 
 load();
-setup();
+//setup();
 
 //requestAnimationFrame(gameLoop);
 //click attack updateUI, checkifwinner, triggeraiattackandupdate
