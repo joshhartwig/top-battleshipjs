@@ -1,4 +1,4 @@
-import { Ship } from "./Ship.js";
+import { Ship } from './Ship.js';
 
 export class GameBoard {
   board = []; //2d array of cells for the board
@@ -51,6 +51,7 @@ export class GameBoard {
   /* method checks if the given row, column, orientation, and length are valid
    for placing a ship on the board. It returns true if the ship fits within the
    board boundaries, and false otherwise.*/
+  // TODO: refactor this, it is waaaay to complicated
   CheckIfValidGrid(row, column, orientation, length) {
     if (row < 0 || column < 0) {
       return false;
@@ -87,7 +88,6 @@ export class GameBoard {
     if (this.board[row][column] !== undefined) {
       this.board[row][column].hit = true;
       this.hits.push(row * 10 + column);
-      console.log(`hit @ r:${row} c:${column} `);
     }
   }
 

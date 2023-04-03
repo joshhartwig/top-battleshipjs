@@ -1,6 +1,6 @@
-import { UI } from "./UI.js";
-import Utils from "./Utils.js";
-import { Player } from "./Player.js";
+import { UI } from './UI.js';
+import Utils from './Utils.js';
+import { Player } from './Player.js';
 
 let player;
 let ai;
@@ -13,12 +13,18 @@ let loadGameComplete = false;
 
 // build our players, ui functionality
 const load = () => {
-  player = new Player("human");
-  ai = new Player("ai");
-  ui = UI("container", true, player.gameboard.board, ai.gameboard.board, this);
+  player = new Player('human');
+  ai = new Player('ai');
+  ui = UI(
+    'gameboard_container',
+    true,
+    player.gameboard.board,
+    ai.gameboard.board,
+    this
+  );
   ui.placeShipFunctionHandler(player.gameboard, player.gameboard.board, setup);
   loadGameComplete = true;
-  console.log("load game complete");
+  console.log('load game complete');
   setup();
 };
 
@@ -45,7 +51,7 @@ const setup = () => {
 
 const loop = () => {
   if (ai.gameboard.AllShipsSunk() || player.gameboard.AllShipsSunk()) {
-    console.log("someone won");
+    console.log('someone won');
     calculateWinner();
   }
 };

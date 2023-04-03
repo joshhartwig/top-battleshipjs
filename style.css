@@ -1,17 +1,23 @@
+
+/* - - - - - - - GENERAL - - - - - - - - */
+
 html {
   background-color: #f9f8f8;
+  
 }
 
 img {
-  width:25%;
+  width:50%;
 }
 
 .container {
   display: flex;
-  justify-content: center;
-  margin-top: 3em;
-
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
 }
+
+/* - - - - - - - GAMEBOARD - - - - - - - - */
 
 .board {
   margin-right: 1em;
@@ -37,6 +43,15 @@ img {
   height: 25px;
 }
 
+.square {
+  position: relative;
+  margin-left: 3px;
+  background-color: grey;
+  border: 1px solid black;
+  width: 10px;
+  height: 10px;
+}
+
 .ship {
   background-color: grey;
 }
@@ -45,6 +60,8 @@ img {
   border: 1px solid blue;
   background-color: blue;
 }
+
+/* - - - - - - - CONTROLS - - - - - - - - */
 
 .controls {
   display: flex;
@@ -64,11 +81,3 @@ img {
   justify-content: center;
 }
 
-.square {
-  position: relative;
-  margin-left: 3px;
-  background-color: grey;
-  border: 1px solid black;
-  width: 10px;
-  height: 10px;
-}
