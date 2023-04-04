@@ -60,8 +60,8 @@ const aiAttackAndUpdate = () => {
   if (winner()) {
     reset();
   } else {
-    let r = Utils.GetRandomNumber(0, 9);
-    let c = Utils.GetRandomNumber(0, 9);
+    const r = Utils.GetRandomNumber(0, 9);
+    const c = Utils.GetRandomNumber(0, 9);
 
     player.gameboard.ReceiveAttack(r, c);
     ui.updateBoards();
@@ -70,9 +70,7 @@ const aiAttackAndUpdate = () => {
 
 // return true if we found a winner
 const winner = () => {
-  //someone is a winner
   if (ai.gameboard.AllShipsSunk() || player.gameboard.AllShipsSunk()) {
-    //condition ? exprIfTrue : exprIfFalse
     ai.gameboard.AllShipsSunk() ? playerScore++ : aiScore++;
     return true;
   }
@@ -86,7 +84,3 @@ const reset = () => {
 };
 
 load();
-//setup();
-
-//requestAnimationFrame(gameLoop);
-//click attack updateUI, checkifwinner, triggeraiattackandupdate

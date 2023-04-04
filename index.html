@@ -11,7 +11,7 @@
 <body>
   <div class="container">
     <div class="header">
-      <img src=".\img\battleship.png" alt="an image of a battleship">
+      <img src=".\img\battleship.png" alt="an image of a battleship" class="image">
       <div class="title">
         <p class="title_para">Battleship</p>
       </div>
@@ -24,8 +24,15 @@
         I may revisist this one in the future and fix all the broken stuff.
       </p>
     </div>
-    <div class="gameboard" id="gameboard_container">
+    <div class="gameboard_wrapper">
+      <div class="scores">
+        <div class="ai_score">Computer Score: </div>
+        <div class="player_score">Players Score: </div>
+      </div>
+      <div class="gameboard" id="gameboard_container">
+      </div>
     </div>
+    
   </div>
   
 </body>
