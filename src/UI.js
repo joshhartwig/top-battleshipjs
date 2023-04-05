@@ -5,25 +5,14 @@ const UI = (_containerID, _devMode = true, _playerBoard, _aiBoard, _game) => {
   const developerMode = _devMode;
   const playerBoard = _playerBoard;
   const aiBoard = _aiBoard;
-  const game = _game;
 
   const createUI = (container) => {
     container.innerHTML = '';
     const aiBoard = createBoard(['ai_board', 'board'], 'aiBoardID');
     const playerBoard = createBoard(['player_board', 'board'], 'playerBoardID');
 
-    const notify = createNotify();
-
     container.appendChild(aiBoard);
     container.appendChild(playerBoard);
-    container.appendChild(notify);
-  };
-
-  const createNotify = () => {
-    const notify = document.createElement('div');
-    notify.classList.add('notify');
-    notify.setAttribute('id', 'notify');
-    return notify;
   };
 
   // returns a board with populated class lists and id
@@ -54,12 +43,7 @@ const UI = (_containerID, _devMode = true, _playerBoard, _aiBoard, _game) => {
     });
   };
 
-  const notify = (str, callbackfn) => {
-    const notify = document.getElementById('notify');
-    notify.innerText = str;
-    callbackfn();
-  };
-
+  // adds a function handler to one of the gameboard elements
   const placeShipFunctionHandler = (gameboard, board, callbackfn) => {
     let counter = 0;
     for (let r = 0; r < board.length; r++) {
@@ -74,6 +58,7 @@ const UI = (_containerID, _devMode = true, _playerBoard, _aiBoard, _game) => {
     }
   };
 
+  // remove function handler from gameboard elements
   const removeFunctionHandler = (gameboard, board, callbackfn) => {
     let counter = 0;
     for (let r = 0; r < board.length; r++) {
@@ -138,8 +123,6 @@ const UI = (_containerID, _devMode = true, _playerBoard, _aiBoard, _game) => {
     }
   };
 
-  const displayInstructions = (msg) => {};
-
   // Initialize UI object
   const init = (() => {
     createUI(container);
@@ -149,7 +132,6 @@ const UI = (_containerID, _devMode = true, _playerBoard, _aiBoard, _game) => {
 
   return {
     updateBoards,
-    notify,
     placeShipFunctionHandler,
     removeFunctionHandler,
     attackShipFunctionHandler,

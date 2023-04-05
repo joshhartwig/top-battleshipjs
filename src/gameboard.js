@@ -24,6 +24,24 @@ export class GameBoard {
     }
   }
 
+  // returns a single array of all the numbers of our ships. Used for checking intersects during placement
+  ReturnShipCoords() {
+    let arr = [];
+    this.ships.forEach((a) => {
+      a.forEach((e) => {
+        arr.push(e);
+      });
+    });
+    return arr;
+  }
+
+  // returns true if one of the coords we want to place our ship at already has a ship
+  checkIfIntersect(x) {
+    const result = this.ReturnShipCoords();
+    if (result.includes(x)) return true;
+    return false;
+  }
+
   // Prints out the current state of the board with each cell's ship and hit properties
   PrintBoard() {
     for (let r = 0; r < this.board.length; r++) {
@@ -51,27 +69,21 @@ export class GameBoard {
   /* method checks if the given row, column, orientation, and length are valid
    for placing a ship on the board. It returns true if the ship fits within the
    board boundaries, and false otherwise.*/
-  // TODO: refactor this, it is waaaay to complicated
   CheckIfValidGrid(row, column, orientation, length) {
-    if (row < 0 || column < 0) {
+    if (row < 0 || column < 0 || row > this.rows || column > this.columns) {
       return false;
-    } else if (row > this.rows || column > this.columns) {
+    }
+    if (orientation === 0) {
+      if (this.board[row][column + (length - 1)] !== undefined) {
+        return true;
+      }
       return false;
-    } else {
-      if (orientation === 0) {
-        if (this.board[row][column + (length - 1)] !== undefined) {
-          return true;
-        } else {
-          return false;
-        }
+    }
+    if (orientation === 1) {
+      if (this.board[row + (length - 1)][column] !== undefined) {
+        return true;
       }
-      if (orientation === 1) {
-        if (this.board[row + (length - 1)][column] !== undefined) {
-          return true;
-        } else {
-          return false;
-        }
-      }
+      return false;
     }
   }
 
@@ -102,7 +114,6 @@ export class GameBoard {
       if (orientation === 0) {
         for (let s = 0; s < length; s++) {
           this.board[row][column].ship = true;
-          //let result = row * 10 + (column - 1);
           let result = row * 10 + column;
           arr.push(result); // push the cell value ex row 3 col 4 = 33
           column += 1;
@@ -118,8 +129,7 @@ export class GameBoard {
       }
       this.ships.push(new Ship(length, arr));
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 }
