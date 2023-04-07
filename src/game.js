@@ -84,3 +84,7 @@ const reset = () => {
 };
 
 load();
+
+//TODO: Idea for ship control
+// 4 ships on the side each of varying sizes 1 - 5
+// during setup while we are pending remaining ships in ship control
