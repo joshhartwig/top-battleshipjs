@@ -17,7 +17,7 @@ const load = () => {
   ai = new Player('ai');
   ui = UI(
     'gameboard_container',
-    false,
+    true,
     player.gameboard.board,
     ai.gameboard.board,
     this

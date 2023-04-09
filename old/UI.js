@@ -58,6 +58,20 @@ const UI = (_containerID, _devMode = true, _playerBoard, _aiBoard, _game) => {
     }
   };
 
+  // attempt to make this more generic
+  const attachFnHandlerToBoardElement = (board, fn, callbackfn) => {
+    let counter = 0;
+    for (let r = 0; r < board.length; r++) {
+      for (let c = 0; c < board.length; c++) {
+        const el = document.getElementById(`$p:${counter}`);
+        el.addEventListener('click', function () {
+          fn(r, c, 0, 3);
+          callbackfn();
+        });
+      }
+    }
+  };
+
   // remove function handler from gameboard elements
   const removeFunctionHandler = (gameboard, board, callbackfn) => {
     let counter = 0;
