@@ -1,6 +1,7 @@
-export class Gameboard {
+import { ship } from './ship';
+export class gameBoard {
   board: { ship: boolean; hit: boolean }[][];
-  ships: number[][];
+  ships: ship[];
   hits: number[];
 
   rows: number = 0;
@@ -17,6 +18,7 @@ export class Gameboard {
     this.board = this.createBoard(rows, cols);
   }
 
+  // create a new 2d array with ships and hits
   createBoard(rows: number, cols: number) {
     let temp = [];
     for (let r = 0; r < rows; r++) {
@@ -36,7 +38,7 @@ export class Gameboard {
   returnShipCoords(): number[] {
     const arr: number[] = [];
     this.ships.forEach((a) => {
-      a.forEach((e) => {
+      a.locations.forEach((e) => {
         arr.push(e);
       });
     });
@@ -70,5 +72,74 @@ export class Gameboard {
   // returns true if all ships on the board have been sunk
   allShipsSunk() {
     return this.ships.every((e) => e.isSunk(this.hits));
+  }
+
+  // returns true if the placement requested is correct
+  checkIfValidGrid(
+    row: number,
+    column: number,
+    orientation: number,
+    length: number
+  ): boolean {
+    if (row < 0 || column < 0 || row > this.rows || column > this.cols)
+      return false;
+    if (orientation === 0) {
+      if (this.board[row][column + (length - 1)] !== undefined) {
+        return true;
+      }
+      return false;
+    }
+    if (orientation === 1) {
+      if (this.board[row + (length - 1)][column] !== undefined) {
+        return true;
+      }
+      return false;
+    }
+    return false;
+  }
+
+  // claer our arrays
+  reset(): void {
+    this.board = [];
+    this.ships = [];
+    this.hits = [];
+  }
+
+  // take in a row and col and mark the board as hit
+  recieveAttack(row: number, column: number): void {
+    const e = this.board[row][column];
+    if (e !== undefined) {
+      e.hit = true;
+      this.hits.push(row * 10 + column);
+    }
+  }
+
+  // checks if requested placement is correct then sets each value on the board to ship
+  placeShip(
+    row: number,
+    column: number,
+    orientation: number,
+    length: number
+  ): void {
+    if (this.checkIfValidGrid(row, column, orientation, length)) {
+      const arr: number[] = [];
+      if (orientation === 0) {
+        for (let s = 0; s < length; s++) {
+          this.board[row][column].ship = true;
+          let result = row * 10 + column;
+          arr.push(result);
+          column += 1;
+        }
+      }
+      if (orientation === 1) {
+        for (let s = 0; s < length; s++) {
+          this.board[row][column].ship = true;
+          let result = row * 10 + (column - 1);
+          arr.push(result);
+          row -= 1;
+        }
+      }
+      this.ships.push(new ship(length, arr));
+    }
   }
 }
