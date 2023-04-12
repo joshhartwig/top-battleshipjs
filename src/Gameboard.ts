@@ -1,12 +1,12 @@
 import { ship } from './ship';
 export class gameBoard {
-  board: { ship: boolean; hit: boolean }[][];
-  ships: ship[];
-  hits: number[];
+  board: { ship: boolean; hit: boolean }[][]; // array of objects that represent our gameboard
+  ships: ship[]; // contains all of our ships
+  hits: number[]; // contains a list of numbers for hits
 
-  rows: number = 0;
-  cols: number = 0;
-  shipLimit: number = 0;
+  rows: number = 0; // size of board in rows
+  cols: number = 0; // size of board in cols total cells = r * c
+  shipLimit: number = 0; // number of ships we can have on our board
 
   constructor(rows: number = 10, cols: number = 10, shipLimit: number = 5) {
     this.board = [];
