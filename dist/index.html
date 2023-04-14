@@ -10,30 +10,53 @@
 </head>
 <body>
   <div class="container">
-    <div class="header">
-      <img src=".\img\battleship.png" alt="an image of a battleship" class="image">
-      <div class="title">
-        <p class="title_para">Battleship</p>
-      </div>
-    </div>
-    <div class="about">
-      <p class="about_para">This game is my iteration of the Battleship Project from The Odin Project. To play the game, simply select the sqaures you want your ships
-        to be placed. Once you place 5 ships, the AI will place 5 ships and you may begin playing. A word about bugs... there are many. The functionality for vertical ship
-        placement exists. I felt like I spent way to much time on this project. Something that should have been possible in a week took me about 2 to 3 months because I
-        dragged ass and skipped around at different content. I finally got to the point where I felt my code was 'good enough' and it was time to move on to other projects.
-        I may revisist this one in the future and fix all the broken stuff.
-      </p>
-    </div>
-    <div class="gameboard_wrapper">
-      <div class="scores" id="notify">
-        <div class="ai_score">Computer Score: </div>
-        <div class="player_score">Players Score: </div>
-      </div>
-      <div class="ship_control" id="shipControl"></div>
-      <div class="gameboard" id="gameboard_container">
-      </div>
-    </div>
     
+    <!--LAYOUT ALWAYS DISPLAYED-->  
+    <div class="layout" id="layout">
+      <div class="header">
+        <img src=".\img\battleship.png" alt="an image of a battleship" class="image">
+        <div class="title">
+          <p class="title_para">Battleship</p>
+        </div>
+      </div>
+    </div>
+
+    <!--INTRO PAGE-->
+    <div class="intro" id="intro">
+      <p class="about_para">Welcome to Battleship. This is a project that is about 1/2 way through the Odin Project.</p>
+      <div class="scores" id="scores">
+        // generated content
+      </div>
+    </div>
+
+    <!--PLACESHIPS PAGE-->
+    <div class="placeships" id="placeships">
+      <div class="placementboard" id="placementboard">
+        // ship placement board - generated content
+      </div>
+      <div class="shipcontrols" id="shipcontrols">
+        // ship control - generated content
+        // ship control should produce a button for each type of ship with a function handler that sets ship placement length, width etc.. these could be stored in globals
+      </div>
+    </div>
+
+    <!--PLAY MATCH-->
+    <div class="playmatch" id="playmatch">
+      <div class="gameboardcontainer" id="gameboardcontainer">
+        <div class="ai_board" id="ai_board">
+          // auto generated ai board
+        </div>
+        <div class="player_board" id="player_board">
+          // auto generated player board
+        </div>
+      </div>
+    </div>  
+
+    <!--GAMEOVER-->
+    <div class="gameover" id="gameover">
+      <p class="gameoverpara">Game Over!</p>
+      // GAME OVER - GENERATED CONTENT
+    </div>
   </div>
   
 </body>

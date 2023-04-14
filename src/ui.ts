@@ -18,8 +18,14 @@ export class ui {
   }
 
   createUI(container: HTMLElement) {
-    const playerBoard = document.createElement('div');
-    const aiBoard = document.createElement('div');
+    // create intro
+
+    // create placement
+    const placementBoard = document.getElementById('placementboard');
+
+    // create gameboards
+    const playerBoard = document.getElementById('player_board')!;
+    const aiBoard = document.getElementById('ai_board')!;
     playerBoard.classList.add('player_board', 'board');
     aiBoard.classList.add('ai_board', 'board');
     container.appendChild(playerBoard);
