@@ -3,6 +3,7 @@
 
 html {
   background-color: #f9f8f8; 
+  font-family: 'Ubuntu', sans-serif;
 }
 
 img {
@@ -20,6 +21,9 @@ img {
 /* - - - - - - - HEADER - - - - - - - - */
 
 .header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: auto;
 }
 
@@ -29,7 +33,17 @@ img {
   margin-right: auto;
 }
 
+.title_para {
+  font-size: 36px;
+  font-weight: 600;
+}
+
 /* - - - - - - - GAMEBOARD WRAPPER - - - - - - - - */
+
+.headers {
+  display: flex;
+  justify-content: space-around;
+}
 
 .gameboard_wrapper {
   display: flex;
@@ -87,7 +101,7 @@ img {
 }
 
 .hit {
-  border: 1px solid blue;
+  border: 1px solid black;
   background-color: blue;
 }
 
